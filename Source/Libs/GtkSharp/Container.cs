@@ -129,7 +129,7 @@ namespace Gtk
         static ForallDelegate ForallOldCallback;
         static ForallDelegate ForallCallback;
 
-        public struct CallbackInvoker
+        public partial struct CallbackInvoker
         {
             IntPtr cb;
             IntPtr data;
