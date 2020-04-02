@@ -142,9 +142,9 @@ namespace Gtk {
             // ((GtkContainerClass *) klass)->forall = cb;
             var isManaged = GLib.GType.IsManaged(gtype);
             var managedType = GLib.GType.LookupType(gtype.Val);
-            var klass = GLib.GType.type_class_peek(gtype.Val);
+            var klass = GLib.GType.TypeClassPeek(gtype.Val);
             if (klass == IntPtr.Zero) {
-                klass = GLib.GType.type_class_peek(gtype.Val);
+                klass = GLib.GType.TypeClassPeek(gtype.Val);
             }
             // this is null, and is the container_struct:var managedTypeKlass =  GLib.GType.LookupType(klass);
         }
