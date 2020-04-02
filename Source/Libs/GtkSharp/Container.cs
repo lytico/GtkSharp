@@ -138,8 +138,6 @@ namespace Gtk
             {
                 this.cb = cb;
                 this.data = data;
-                this.GtkCallback = default;
-                this.Include_internals = false;
             }
 
             internal IntPtr Data

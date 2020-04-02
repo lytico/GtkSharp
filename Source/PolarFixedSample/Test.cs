@@ -29,23 +29,25 @@ class Test {
             pf.Put (l, theta, 200);
         }
 
-        // Spiral
-        pf = new PolarFixed ();
-        notebook.AppendPage (pf, new Label ("Spiral"));
+        if (false) {
+            // Spiral
+            pf = new PolarFixed();
+            notebook.AppendPage(pf, new Label("Spiral"));
 
-        r = 0;
-        theta = 0.0;
+            r = 0;
+            theta = 0.0;
 
-        foreach (string id in Gtk.Stock.ListIds ()) {
-            StockItem item = Gtk.Stock.Lookup (id);
-            if (item.Label == null)
-                continue;
+            foreach (string id in Gtk.Stock.ListIds()) {
+                StockItem item = Gtk.Stock.Lookup(id);
+                if (item.Label == null)
+                    continue;
 
-            pf.Put (new Gtk.Button (id), theta, r);
+                pf.Put(new Gtk.Button(id), theta, r);
 
-            // Logarithmic spiral: r = a*e^(b*theta)
-            r += 5;
-            theta = 10 * Math.Log (10 * r);
+                // Logarithmic spiral: r = a*e^(b*theta)
+                r += 5;
+                theta = 10 * Math.Log(10 * r);
+            }
         }
 
         win.ShowAll ();

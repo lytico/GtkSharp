@@ -72,6 +72,7 @@ class PolarFixed : Container {
 	// Gtk.Container.Children and Gtk.Container.AllChildren.
 	protected override void ForAll (bool include_internals, Callback callback)
 	{
+		base.ForAll(include_internals,callback);
 		foreach (PolarFixedChild pfc in children)
 			callback (pfc.Child);
 	}
