@@ -433,9 +433,15 @@ namespace GLib {
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 		delegate IntPtr d_g_type_class_peek(IntPtr gtype);
 		static d_g_type_class_peek g_type_class_peek = FuncLoader.LoadFunction<d_g_type_class_peek>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_type_class_peek"));
+
+		public static IntPtr TypeClassPeek(IntPtr gtype) => g_type_class_peek.Invoke(gtype);
+		
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 		delegate IntPtr d_g_type_class_ref(IntPtr gtype);
 		static d_g_type_class_ref g_type_class_ref = FuncLoader.LoadFunction<d_g_type_class_ref>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_type_class_ref"));
+		
+		public static IntPtr TypeClassRef(IntPtr gtype) => g_type_class_ref.Invoke(gtype);
+		
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 		delegate IntPtr d_g_type_default_interface_peek(IntPtr gtype);
 		static d_g_type_default_interface_peek g_type_default_interface_peek = FuncLoader.LoadFunction<d_g_type_default_interface_peek>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_type_default_interface_peek"));
