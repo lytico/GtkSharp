@@ -7,27 +7,25 @@ using Gtk;
 
 namespace Samples
 {
+	[Section(ContentType = typeof(ImageBox), Category = Category.Widgets)]
+	class ImageSection : ListSection
+	{
+		public ImageSection()
+		{
+			AddItem(CreateContainer());
+		}
 
-    [Section(ContentType = typeof(ImageBox), Category = Category.Widgets)]
-    class ImageSection : ListSection
-    {
-        public ImageSection()
-        {
-            AddItem(CreateContainer());
-        }
+		public (string, Widget) CreateContainer()
+		{
+			Pixbuf image = default;
+			using (var stream = Util.GetResourceStream(typeof(ImageSection).Assembly, "Testpic.png")) {
+				image = new Pixbuf(stream);
+			}
 
-        public (string, Widget) CreateContainer() {
-            Pixbuf image = default;
-            using (var stream = Util.GetResourceStream(typeof(ImageSection).Assembly,"Testpic.png")) {
-                image = new Pixbuf(stream);
-            }
-
-            var container = new ImageBox(image);
+			var container = new ImageBox(image);
 
 
-            return ($"{nameof(ImageBox)}:", container);
-        }
-    }
-
+			return ($"{nameof(ImageBox)}:", container);
+		}
+	}
 }
-

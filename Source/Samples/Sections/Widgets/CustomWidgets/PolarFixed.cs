@@ -6,22 +6,26 @@ using System.Collections.Generic;
 using Gtk;
 using Gdk;
 
-namespace Samples {
-	
-	class PolarFixed : Container {
+namespace Samples
+{
+	class PolarFixed : Container
+	{
 		IList<PolarFixedChild> children;
 
-		public PolarFixed() {
+		public PolarFixed()
+		{
 			children = new List<PolarFixedChild>();
 			HasWindow = false;
 		}
 
 		// The child properties object
-		public class PolarFixedChild : Container.ContainerChild {
+		public class PolarFixedChild : Container.ContainerChild
+		{
 			double theta;
 			uint r;
 
-			public PolarFixedChild(PolarFixed parent, Widget child, double theta, uint r) : base(parent, child) {
+			public PolarFixedChild(PolarFixed parent, Widget child, double theta, uint r) : base(parent, child)
+			{
 				this.theta = theta;
 				this.r = r;
 			}
@@ -65,13 +69,15 @@ namespace Samples {
 		// The default is "GLib.GType.None", which technically means that no (new)
 		// children can be added to the container, though Container.Add does not
 		// enforce this.
-		protected override GLib.GType OnChildType() {
+		protected override GLib.GType OnChildType()
+		{
 			return Gtk.Widget.GType;
 		}
 
 		// Implement gtk_container_forall(), which is also used by
 		// Gtk.Container.Children and Gtk.Container.AllChildren.
-		protected override void ForAll(bool include_internals, Callback callback) {
+		protected override void ForAll(bool include_internals, Callback callback)
+		{
 			base.ForAll(include_internals, callback);
 			foreach (PolarFixedChild pfc in children)
 				callback(pfc.Child);
@@ -79,18 +85,21 @@ namespace Samples {
 
 		// Invoked by Container.Add (w). It's good practice to have this do *something*,
 		// even if it's not something terribly useful.
-		protected override void OnAdded(Widget w) {
+		protected override void OnAdded(Widget w)
+		{
 			Put(w, 0.0, 0);
 		}
 
 		// our own adder method
-		public void Put(Widget w, double theta, uint r) {
+		public void Put(Widget w, double theta, uint r)
+		{
 			children.Add(new PolarFixedChild(this, w, theta, r));
 			w.Parent = this;
 			QueueResize();
 		}
 
-		public void Move(Widget w, double theta, uint r) {
+		public void Move(Widget w, double theta, uint r)
+		{
 			PolarFixedChild pfc = (PolarFixedChild) this[w];
 			if (pfc != null) {
 				pfc.Theta = theta;
@@ -99,7 +108,8 @@ namespace Samples {
 		}
 
 		// invoked by Container.Remove (w)
-		protected override void OnRemoved(Widget w) {
+		protected override void OnRemoved(Widget w)
+		{
 			PolarFixedChild pfc = (PolarFixedChild) this[w];
 			if (pfc != null) {
 				pfc.Child.Unparent();
@@ -109,19 +119,22 @@ namespace Samples {
 		}
 
 		// Handle size request
-		protected override void OnGetPreferredHeight(out int minimal_height, out int natural_height) {
+		protected override void OnGetPreferredHeight(out int minimal_height, out int natural_height)
+		{
 			Requisition req = new Requisition();
 			OnSizeRequested(ref req);
 			minimal_height = natural_height = req.Height;
 		}
 
-		protected override void OnGetPreferredWidth(out int minimal_width, out int natural_width) {
+		protected override void OnGetPreferredWidth(out int minimal_width, out int natural_width)
+		{
 			Requisition req = new Requisition();
 			OnSizeRequested(ref req);
 			minimal_width = natural_width = req.Width;
 		}
 
-		void OnSizeRequested(ref Requisition req) {
+		void OnSizeRequested(ref Requisition req)
+		{
 			int child_width, child_minwidth, child_height, child_minheight;
 			int x, y;
 
@@ -152,7 +165,8 @@ namespace Samples {
 		// of their children a smaller allocation than they requested. Other containers
 		// (like this one) just let their children get placed partly out-of-bounds if they
 		// aren't allocated enough room.
-		protected override void OnSizeAllocated(Rectangle allocation) {
+		protected override void OnSizeAllocated(Rectangle allocation)
+		{
 			Requisition childReq, childMinReq;
 			int cx, cy, x, y;
 
