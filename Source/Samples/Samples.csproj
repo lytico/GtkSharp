@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <OutputPath>..\..\BuildOutput\Samples</OutputPath>
   </PropertyGroup>
@@ -10,11 +10,18 @@
     <EmbeddedResource Include="**\*.glade">
       <LogicalName>%(Filename)%(Extension)</LogicalName>
     </EmbeddedResource>
+    <None Remove="LogoDrop32.png" />
+    <EmbeddedResource Include="Testpic.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Sections\**\*.cs" Visible="false">
       <LogicalName>GtkSharp.Samples.%(Filename).cs</LogicalName>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Libs\Shared\*.cs">
+      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Libs\AtkSharp\AtkSharp.csproj" />
