@@ -212,7 +212,7 @@ namespace GtkSharp.Generation {
 			// sw.WriteLine ("\t\t\t\tIntPtr* raw_ptr = (IntPtr*)(((long) this.LookupGType().GetThresholdType().GetClassPtr()) + (long) class_abi.GetFieldOffset(\"{0}\"));", CName);
 			// sw.WriteLine ("\t\t\t\tunmanaged = ({0}NativeDelegate) Marshal.GetDelegateForFunctionPointer(*raw_ptr, typeof({0}NativeDelegate));", this.Name);
 			// sw.WriteLine ("\t\t\t}");
-			sw.WriteLine ($"\t\t\t{Name}NativeDelegate unmanaged = class_abi.BaseOverride<{Name}NativeDelegate>(this.LookupGType (),{CName};");
+			sw.WriteLine ($"\t\t\t{Name}NativeDelegate unmanaged = class_abi.BaseOverride<{Name}NativeDelegate>(this.LookupGType(), \"{CName}\");");
 			sw.Write ("\t\t\tif (unmanaged == null) ");
 			if (parms.HasOutParam)
 				sw.WriteLine ("throw new InvalidOperationException (\"No base method to invoke\");");
