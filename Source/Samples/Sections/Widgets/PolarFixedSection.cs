@@ -26,7 +26,7 @@ namespace Samples {
 
                 Label l = new Label("<big><b>" + hour.ToString() + "</b></big>");
                 l.UseMarkup = true;
-                pf.Put(l, theta, 100);
+                pf.Put(l, theta, 50);
             }
 
             return ("Clock", pf);
@@ -48,11 +48,12 @@ namespace Samples {
                 StockItem item = Gtk.Stock.Lookup(id);
                 if (item.Label == null)
                     continue;
-
-                pf.Put(new Gtk.Button(id), theta, r);
+                var icon = Gtk.Image.NewFromIconName(item.StockId, IconSize.SmallToolbar);
+                
+                pf.Put(icon, theta, r);
 
                 // Logarithmic spiral: r = a*e^(b*theta)
-                r += 2;
+                r += 1;
                 theta = 10 * Math.Log(10 * r);
             }
 
