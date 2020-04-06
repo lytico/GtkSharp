@@ -86,9 +86,11 @@ namespace Samples
 			set {
 				image = value;
 				SetSizeRequest((int) image.Width, (int) image.Height);
-				QueueResize();
+				//QueueDraw();
 			}
 		}
+
+		private Size SizeRequestet { get; set; }
 
 		public float Yalign {
 			get { return yalign; }
@@ -105,22 +107,7 @@ namespace Samples
 				QueueDraw();
 			}
 		}
-
-		protected override void OnAdjustSizeRequest(Orientation orientation, out int minimum_size, out int natural_size)
-		{
-			base.OnAdjustSizeRequest(orientation, out minimum_size, out natural_size);
-		}
-
- 		// TODO
-		// protected override void OnSizeRequested (ref Gtk.Requisition requisition)
-		// {
-		//     base.OnSizeRequested (ref requisition);
-		//     if (!image.IsNull) {
-		//         requisition.Width = (int) image.Width;
-		//         requisition.Height = (int) image.Height;
-		//     }
-		// }
-
+		
 		void DrawPixbuf(Cairo.Context ctx, Gdk.Pixbuf img, double x, double y, Size idesc)
 		{
 			ctx.Save();
@@ -152,6 +139,7 @@ namespace Samples
 			if (image == default)
 				return true;
 			var a = Allocation;
+			var size = Allocation.Size;
 			Pixbuf pixbuff = image;
 			// HACK: Gtk sends sometimes an expose/draw event while the widget reallocates.
 			//       In that case we would draw in the wrong area, which may lead to artifacts
@@ -164,7 +152,7 @@ namespace Samples
 			var y = (int) ((a.Height - (float) pixbuff.Height) * yalign);
 			if (x < 0) x = 0;
 			if (y < 0) y = 0;
-			DrawPixbuf(cr, pixbuff, x, y, a.Size);
+			DrawPixbuf(cr, pixbuff, x, y, size);
 			return base.OnDrawn(cr);
 		}
 	}
